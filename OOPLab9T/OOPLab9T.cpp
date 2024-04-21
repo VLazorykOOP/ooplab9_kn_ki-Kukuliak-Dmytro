@@ -52,7 +52,7 @@ void min(){
     }
 
 }
-int main()
+/*/int main()
 {
     setlocale(LC_CTYPE, "ukr");
 
@@ -82,4 +82,58 @@ int main()
     catch (std::exception& e) {
         std::cerr << "Помилка:" << e.what() << std::endl;
     }
+}
+*/
+#include <list>
+#include <iterator>
+#include <algorithm>
+int main() {
+    setlocale(LC_CTYPE, "ukr");
+    try {
+        std::list<int> L{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+        std::list<int> L1{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+        int k;
+        std::cout << "Введiть значення k (0 < k < 5): ";
+        std::cin >> k;
+
+        if (k < 0 || k > 5) {
+            throw std::invalid_argument("k повинно бути в дiапазонi [0, 5]");
+        }
+       //Логічно правильний код, який так і не запрацював
+       /* auto begin = L.end();
+        std::advance(begin, -4);
+        auto end = L.end();
+       // std::advance(end, -5);
+        auto  val = L.begin();
+        std::advance(val, k);*/
+        //в цьому контексті val це ітератор на елемент, який май стати першим
+        auto begin = L.begin();
+        auto end = L.begin();
+        std::advance(end, 5);
+        auto val = L.begin();
+        std::advance(val, k);
+        // Копіюємо елементи з кінця списку на початок списку з циклічним зсувом на k позицій вліво
+        std::rotate_copy(begin, val, end, std::front_inserter(L1));
+
+        begin = L.begin();
+        end = L.begin();
+        std::advance(end, 5);
+        val = L.begin();
+        std::advance(val, k);
+        // Копіюємо елементи з початку списку в кінець списку з циклічним зсувом на k позицій вправо
+        std::rotate_copy(begin, val, end, std::back_inserter(L1));
+
+
+        // Виводимо результат
+        std::cout << "Результат після операцій:" << std::endl;
+        for (const auto& elem : L1) {
+            std::cout << elem << " ";
+        }
+        std::cout << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Помилка: " << e.what() << std::endl;
+    }
+
+    return 0;
 }
