@@ -35,6 +35,7 @@ ob Voloka("Волока");
 void min(){
     std::cout << "Студенти, які провалили НМТ:" << std::endl;
     for (auto i : Hliboka.allSchools) {
+        std::cout << "Студенти школи номер "<< i.schoolNumber<< " Глибоки" << std::endl << std::endl;
         for (auto j : i.getResults()) {
             if (j.getGrades().math <= 50 || j.getGrades().ukr <= 50 || j.getGrades().info <= 50) {
                 std::cout << j << std::endl;
@@ -42,6 +43,7 @@ void min(){
         }
     }
     for (auto i : Voloka.allSchools) {
+        std::cout << "Студенти школи номер " << i.schoolNumber << " Волоки" << std::endl << std::endl;
         for (auto j : i.getResults()) {
             if (j.getGrades().math <= 50 || j.getGrades().ukr <= 50 || j.getGrades().info <= 50) {
                 std::cout << j << std::endl;
